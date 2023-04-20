@@ -13,7 +13,7 @@ from linebot.models import (
 )
 import json
 
-from AIBot.chatgpt import ChatGPT
+from chatgpt import ChatGPT
 
 app = Flask(__name__)
 
