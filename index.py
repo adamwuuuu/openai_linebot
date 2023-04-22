@@ -84,6 +84,6 @@ def handle_message(event):
 
 
 if __name__ == "__main__":
-    port = int(os.environ.get('PORT', 5000) \
+    port = int(os.environ.get('PORT', 5000))
     working_status = os.getenv("DEFALUT_TALKING", default="true").lower() == "true"
     app.run(host="0.0.0.0", port=port)
