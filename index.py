@@ -1,6 +1,6 @@
 #coding:UTF-8
 import os
-from flask import Flask, request
+from flask import Flask, request,render_template
 from linebot import (
     LineBotApi, WebhookHandler
 )
