@@ -55,22 +55,24 @@ def callback():
 
 @handler.add(MessageEvent, message=TextMessage)
 def handle_message(event):
-    global working_status
+    global working_status,line_user_id
     working_status=True
+    line_user_id=event.source.user_id
     line_bot_api.reply_message(
         event.reply_token,
-        TextSendMessage(text=event.message.text))
+        TextSendMessage(text="用戶查詢:"+event.message.text))
 
     if working_status:
         chatgpt.add_msg(f"Human:{event.message.text}?\n")
         reply_msg = chatgpt.get_response().replace("AI:", "", 1)
         chatgpt.add_msg(f"AI:{reply_msg}\n")
-        line_bot_api.reply_message(
-            event.reply_token,
+        line_bot_api.push_message(
+            line_user_id,
             TextSendMessage(text=reply_msg))
 
 
 if __name__ == "__main__":
     port = int(os.environ.get('PORT', 5000))
     working_status = os.getenv("DEFALUT_TALKING", default="true").lower() == "true"
+    line_user_id=""
     app.run(host="0.0.0.0", port=port)
