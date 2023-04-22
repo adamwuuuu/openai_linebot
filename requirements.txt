@@ -1,3 +1,4 @@
+python
 Flask==2.2.2
 line-bot-sdk
 openai
