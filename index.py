@@ -1,6 +1,5 @@
 #coding:UTF-8
 import os
-# import openai
 from flask import Flask, request
 from linebot import (
     LineBotApi, WebhookHandler
@@ -12,27 +11,22 @@ from linebot.models import (
     MessageEvent, TextMessage, TextSendMessage,
 )
 import json
+from flask_cors import CORS
 
 from chatgpt import ChatGPT
 
-app = Flask(__name__)
+app=Flask(__name__, static_folder="./build", static_url_path='/',template_folder = "./build")
 
 line_bot_api = LineBotApi(os.getenv("LINE_CHANNEL_ACCESS_TOKEN"))
 handler =WebhookHandler(os.getenv("LINE_CHANNEL_SECRET"))
 
+CORS(app)
 
 chatgpt = ChatGPT()
 
-# response = openai.Completion.create(
-#   model="text-davinci-003",
-#   prompt="The following is a conversation with an AI assistant. The assistant is helpful, creative, clever, and very friendly.\n\nHuman: Hello, who are you?\nAI: I am an AI created by OpenAI. How can I help you today?\nHuman: I'd like to cancel my subscription.\nAI:",
-#   temperature=0.9,
-#   max_tokens=150,
-#   top_p=1,
-#   frequency_penalty=0.0,
-#   presence_penalty=0.6,
-#   stop=[" Human:", " AI:"]
-# )
+@app.route("/")
+def home_page():
+    return render_template("index.html")
 
 @app.route("/webhook", methods=['POST'])
 def callback():
