@@ -19,7 +19,7 @@ app = Flask(__name__)
 
 line_bot_api = LineBotApi(os.getenv("LINE_CHANNEL_ACCESS_TOKEN"))
 handler =WebhookHandler(os.getenv("LINE_CHANNEL_SECRET"))
-working_status = os.getenv("DEFALUT_TALKING", default = "true").lower() == "true"
+
 
 chatgpt = ChatGPT()
 
@@ -84,5 +84,6 @@ def handle_message(event):
 
 
 if __name__ == "__main__":
-    port = int(os.environ.get('PORT', 5000))
+    port = int(os.environ.get('PORT', 5000) \
+    working_status = os.getenv("DEFALUT_TALKING", default="true").lower() == "true"
     app.run(host="0.0.0.0", port=port)
