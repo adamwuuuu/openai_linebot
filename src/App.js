@@ -16,7 +16,7 @@ function App() {
     <div className="App">
      <BrowserRouter>
       <Routes>
-       <Route exact path="/pdf" element={<Pdf/>}></Route>
+       <Route exact path="/pdf" element={<Pdf />}></Route>
       </Routes>
       <header className="App-header">
         <img src={logo} className="App-logo" alt="logo" />
