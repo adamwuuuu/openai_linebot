@@ -15,8 +15,8 @@ function Browse() {
   // 👇️ get ID from url
   const params = useParams();
   const navigate = useNavigate();
-  console.log(params);
-  navigate("/"+params);
+  console.log(params['id']);
+  navigate("/"+params['id']);
 
   return <h2>userId is 👉️ {params.userId}</h2>;
 }
@@ -26,7 +26,7 @@ function App() {
     <div className="App">
      <BrowserRouter>
       <Routes>
-       <Route exact path="/:id" element={<Browse />}></Route>
+       <Route exact path="/func/:id" element={<Browse />}></Route>
        <Route exact path="/pdf" element={<Pdf />}></Route>
       </Routes>
       {/* <header className="App-header">
