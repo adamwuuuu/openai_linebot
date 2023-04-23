@@ -1,9 +1,23 @@
 import logo from './logo.svg';
 import './App.css';
+import {
+  BrowserRouter,
+  Router,
+  Routes,
+  Route,
+  Link,
+  Navigate
+} from "react-router-dom";
+
+import Pdf from "./pages/pdf"
 
 function App() {
   return (
     <div className="App">
+     <BrowserRouter>
+      <Routes>
+       <Route exact path="/pdf" element={<Pdf/>}></Route>
+      </Routes>
       <header className="App-header">
         <img src={logo} className="App-logo" alt="logo" />
         <p>
@@ -18,6 +32,7 @@ function App() {
           Learn React
         </a>
       </header>
+     </BrowserRouter>
     </div>
   );
 }
