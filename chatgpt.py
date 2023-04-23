@@ -24,6 +24,7 @@ class ChatGPT:
             presence_penalty=self.presence_penalty,
             max_tokens=self.max_tokens
         )
+        print("OpenAI Response: %s"%(response))
         return response['choices'][0]['text'].strip()
 
     def add_msg(self, text):

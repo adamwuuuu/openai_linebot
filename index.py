@@ -14,6 +14,7 @@ import json
 from flask_cors import CORS
 
 from chatgpt import ChatGPT
+from router.pdf import pdf_dp
 
 app=Flask(__name__, static_folder="./build", static_url_path='/',template_folder = "./build")
 
