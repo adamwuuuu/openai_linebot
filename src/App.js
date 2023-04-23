@@ -16,9 +16,9 @@ function App() {
     <div className="App">
      <BrowserRouter>
       <Routes>
-       <Route exact path="pdf" element={<Pdf />}></Route>
+       <Route exact path="/pdf" element={<Pdf />}></Route>
       </Routes>
-      <header className="App-header">
+      {/* <header className="App-header">
         <img src={logo} className="App-logo" alt="logo" />
         <p>
           Edit <code>src/App.js</code> and save to reload.
@@ -31,7 +31,7 @@ function App() {
         >
           Learn React
         </a>
-      </header>
+      </header> */}
      </BrowserRouter>
     </div>
   );
