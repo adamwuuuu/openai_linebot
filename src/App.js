@@ -2,7 +2,7 @@ import logo from './logo.svg';
 import './App.css';
 import {
   BrowserRouter,
-  Router,
+  useNavigate,
   Routes,
   Route,
   Link,
@@ -11,12 +11,23 @@ import {
 
 import Pdf from "./pages/pdf"
 
+function Browse() {
+  // 👇️ get ID from url
+  const params = useParams();
+  const navigate = useNavigate();
+  console.log(params);
+  navigate("/"+params);
+
+  return <h2>userId is 👉️ {params.userId}</h2>;
+}
+
 function App() {
   return (
     <div className="App">
      <BrowserRouter>
       <Routes>
-       <Route exact path="/:id" element={<Pdf />}></Route>
+       <Route exact path="/:id" element={<Browse />}></Route>
+       <Route exact path="/pdf" element={<Pdf />}></Route>
       </Routes>
       {/* <header className="App-header">
         <img src={logo} className="App-logo" alt="logo" />
