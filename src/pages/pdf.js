@@ -10,10 +10,15 @@ import Container from '@mui/material/Container';
 import Grid from '@mui/material/Grid';
 import Paper from '@mui/material/Paper';
 import Button from '@mui/material/Button';
+import {useParams} from 'react-router-dom';
 
 export default function Pdf() {
 
     const [file,setFile]=useState("");
+
+    const params = useParams();
+
+    console.log(params); 
 
     const fileinput=(e)=>{
         setFile(e.target.value);

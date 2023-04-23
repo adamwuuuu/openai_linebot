@@ -6,7 +6,7 @@ import {
   Routes,
   Route,
   Link,
-  Navigate
+  useParams
 } from "react-router-dom";
 
 import Pdf from "./pages/pdf"
@@ -16,7 +16,7 @@ function App() {
     <div className="App">
      <BrowserRouter>
       <Routes>
-       <Route exact path="/pdf" element={<Pdf />}></Route>
+       <Route exact path="/:id" element={<Pdf />}></Route>
       </Routes>
       {/* <header className="App-header">
         <img src={logo} className="App-logo" alt="logo" />
