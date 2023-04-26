@@ -10,23 +10,15 @@ import {
 } from "react-router-dom";
 
 import Pdf from "./pages/pdf"
+import Home from "./pages/home"
 
-function Browse() {
-  // 👇️ get ID from url
-  const params = useParams();
-  const navigate = useNavigate();
-  console.log(params['id']);
-  navigate("/"+params['id']);
-
-  return <h2>userId is 👉️ {params.userId}</h2>;
-}
 
 function App() {
   return (
     <div className="App">
      <BrowserRouter>
       <Routes>
-       <Route exact path="/func/:id" element={<Browse />}></Route>
+       <Route exact path="/" element={<Home />}></Route>
        <Route exact path="/pdf" element={<Pdf />}></Route>
       </Routes>
       {/* <header className="App-header">
