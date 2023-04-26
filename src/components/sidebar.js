@@ -118,7 +118,7 @@ export default function Sidebar(){
       <ThemeProvider theme={mdTheme}>
         <Box sx={{ display: 'flex' }}>
           <CssBaseline />
-          <AppBar position="absolute" open={open}>
+          <AppBar position="absolute" open={!open}>
             <Toolbar
               sx={{
                 pr: '24px', // keep right padding when drawer closed
@@ -145,13 +145,13 @@ export default function Sidebar(){
               >
               </Typography>
               <IconButton color="inherit">
-                <Badge badgeContent={4} color="secondary">
-                  {/* <NotificationsIcon /> */}
-                </Badge>
+                {/* <Badge badgeContent={4} color="secondary">
+                  <NotificationsIcon />
+                </Badge> */}
               </IconButton>
             </Toolbar>
           </AppBar>
-          <Drawer variant="permanent" open={open}>
+          <Drawer variant="permanent" open={!open}>
             <Toolbar
               sx={{
                 display: 'flex',
