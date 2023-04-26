@@ -6,10 +6,6 @@ import Paper from '@mui/material/Paper';
 import Link from '@mui/material/Link';
 
 export default function Home(){
-    const [open, setOpen] =useState(true);
-    const toggleDrawer = () => {
-      setOpen(!open);
-    };
   
     return (
         <Container maxWidth="lg" sx={{ mt: 4, mb: 4 }}>
@@ -24,6 +20,15 @@ export default function Home(){
                 height: 240,
               }}
             >
+             <Typography
+                component="h1"
+                variant="h6"
+                color="inherit"
+                noWrap
+                sx={{ flexGrow: 1 }}
+              >
+                Home
+              </Typography>
               {/* <Chart /> */}
             </Paper>
           </Grid>
