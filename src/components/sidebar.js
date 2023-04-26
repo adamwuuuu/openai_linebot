@@ -118,7 +118,7 @@ export default function Sidebar(){
       <ThemeProvider theme={mdTheme}>
         <Box sx={{ display: 'flex' }}>
           <CssBaseline />
-          <AppBar position="absolute" open={!open}>
+          <AppBar position="absolute" open={open}>
             <Toolbar
               sx={{
                 pr: '24px', // keep right padding when drawer closed
