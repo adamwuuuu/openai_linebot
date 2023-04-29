@@ -13,13 +13,12 @@ pdf_dp = Blueprint("pdf", __name__, url_prefix='/pdf')
 @pdf_dp.route("/upload",methods=['POST'])
 def upload():
     pdf=PdfParse()
-    # file=request.files['files']
-    file=request.stream
-    # print(file)
-    # print(file.read())
-    pdf.openWithBinary(file)
+    file=request.files['files']
+    file.save("temp.pdf")
+    pdf.open("temp.pdf")
+    # file=request.stream
+    # pdf.openWithBinary(file)
     pdf.getText()
-    # file = request.get_data()
 
     return jsonify({"status":"ok"})
 
