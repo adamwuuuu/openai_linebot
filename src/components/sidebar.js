@@ -151,7 +151,7 @@ export default function Sidebar(){
               </IconButton>
             </Toolbar>
           </AppBar>
-          <Drawer variant="permanent" open={!open}>
+          <Drawer variant="permanent" open={open}>
             <Toolbar
               sx={{
                 display: 'flex',

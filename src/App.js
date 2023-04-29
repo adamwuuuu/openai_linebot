@@ -19,11 +19,12 @@ function App() {
   return (
     <div className="App">
      <BrowserRouter>
-     <Sidebar />
-      <Routes>
-       <Route exact path="/" element={<Home />}></Route>
-       <Route exact path="/pdf" element={<Pdf />}></Route>
-      </Routes>
+      <Sidebar>
+       <Routes>
+        <Route exact path="/" element={<Home />}></Route>
+        <Route exact path="/pdf" element={<Pdf />}></Route>
+       </Routes>
+      </Sidebar>
      </BrowserRouter>
     </div>
   );
