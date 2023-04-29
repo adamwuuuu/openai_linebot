@@ -150,14 +150,14 @@ export default function Pdf() {
                    header="[Drag to drop]"
                    leftLabel="or"
                    rightLabel="to select files"
-                   buttonLabel="click here"
+                   buttonLabel="選擇"
                    buttonRemoveLabel="移除全部檔案"
                    maxFileSize={0}
                    maxUploadFiles={0}
                   //  maxFilesContainerHeight={357}
-                   acceptedType={'image/*'}
+                   acceptedType={'pdf/*'}
                    errorSizeMessage={'fill it or remove it to use the default error message'}
-                  //  allowedExtensions={['jpg', 'jpeg']}
+                   allowedExtensions={['pdf']}
                    onFilesChange={handleFilesChange}
                    onError={handleFileUploadError}
                   //  imageSrc={'path/to/custom/image'}
