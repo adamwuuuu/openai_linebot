@@ -23,7 +23,7 @@ class PdfParse():
             return "Open PDF Reader"
 
         for i in range(len(self.pdfReader.pages)):
-            PageObj = self.pdfReader.pages[0]
+            PageObj = self.pdfReader.pages[i]
             #可以取得內容文字(第幾頁)
             ss=PageObj.extract_text()
             print(ss)
