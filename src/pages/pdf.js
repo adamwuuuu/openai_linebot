@@ -28,11 +28,31 @@ import axios from "axios"
 export default function Pdf() {
 
     const [filename,setFilename]=useState(""); 
+    const [filestate,setFilestate]=useState({
+      selectedFile: null
+    });
 
     const fileinput=(e)=>{
         setFilename(e.target.value);
         console.log(filename);
     }
+
+    // On file select (from the pop up)
+    const onFileChange = (e) => {
+      setFilestate({ selectedFile: e.target.files[0] });
+      console.log(filestate);
+    };
+     
+    // On file upload (click the upload button)
+    const onFileUpload = () => {
+      // Create an object of formData
+      const formData = new FormData();
+      // Update the formData object
+      formData.append(
+        "myFile",
+        setFilestate.selectedFile,
+        setFilestate.selectedFile.name
+    );
 
     useEffect(()=>{
       console.log("file change");
@@ -98,9 +118,11 @@ export default function Pdf() {
                     height: 240,
                   }}
                 >
-                <Button variant="contained" component="label">
+
+                <input type="file" onChange={onFileChange} />
+                 {/* <input hidden accept="image/*" multiple type="file" onChange={fileinput} /> */}
+                <Button variant="contained" component="label" onClick={onFileUpload}>
                   檔案選擇
-                 <input hidden accept="image/*" multiple type="file" onChange={fileinput} />
                 </Button>
                 </Paper>
               </Grid>
