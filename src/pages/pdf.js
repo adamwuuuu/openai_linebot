@@ -37,6 +37,7 @@ export default function Pdf() {
     const [filesToUpload, setFilesToUpload] = useState([])
     const [load,setLoad]=useState(false)
     const [rows,setRows]=useState([])
+    const [gptrows,setGptrows]=useState([]);
 
     const handleFilesChange = (files) => {
       // Update chosen files
@@ -56,13 +57,16 @@ export default function Pdf() {
       .then((response)=>{
          let data=response.data;
          let res=[];
+         let gptres=[];
          console.log(data);
          if(data.status){
            for(let i=0;i<data.question.length;i++){
              res.push({id:i+1,question:data.question[i],
               questionNumber:data.questionNumber[i],anwser:data.anwser[i]})
+             gptres.push({id:i+1,questionNumber:data.questionNumber[i],gptanwser:data.gptanwser[i]})
            }
            setRows(res);
+           setGptrows(gptres);
          }
          setLoad(false);
       })
@@ -70,6 +74,7 @@ export default function Pdf() {
         console.log(error);
         setLoad(false);
         setRows([]);
+        setGptrows([]);
       })
     }
 
@@ -120,19 +125,22 @@ export default function Pdf() {
           `${params.row.questionNumber || ''} ${params.row.question || ''}`,
       },
     ];
-    
-    // const rows = [
-    //   { id: 1, question: 'Snow', questionNumber: 'Jon', anwser: 35 },
-    //   { id: 2, question: 'Lannister', questionNumber: 'Cersei', anwser: 42 },
-    //   { id: 3, question: 'Lannister', questionNumber: 'Jaime', anwser: 45 },
-    //   { id: 4, question: 'Stark', questionNumber: 'Arya', anwser: 16 },
-    //   { id: 5, question: 'Targaryen', questionNumber: 'Daenerys', anwser: null },
-    //   { id: 6, question: 'Melisandre', questionNumber: null, anwser: 150 },
-    //   { id: 7, question: 'Clifford', questionNumber: 'Ferrara', anwser: 44 },
-    //   { id: 8, question: 'Frances', questionNumber: 'Rossini', anwser: 36 },
-    //   { id: 9, question: 'Roxie', questionNumber: 'Harvey', anwser: 65 },
-    // ];
 
+    const gpt_columns = [
+      { field: 'id', headerName: 'ID', width: 70 },
+      { field: 'questionNumber', headerName: '題目編號', width: 130 },
+      { field: 'gptanwser', headerName: 'GPT答案', width: 230 },
+      {
+        field: 'comment',
+        headerName: '備註',
+        description: 'This column has a value getter and is not sortable.',
+        sortable: false,
+        width: 160,
+        valueGetter: (params) =>
+          `${params.row.questionNumber || ''} ${params.row.gptanwser || ''}`,
+      },
+    ];
+    
     return(
         <Box sx={{ display: 'flex' }}>
         <CssBaseline />
@@ -164,7 +172,7 @@ export default function Pdf() {
           <Container maxWidth="lg" sx={{ mt: 4, mb: 4 }}>
             <Grid container spacing={3}>
               {/* Chart */}
-              <Grid item xs={12} md={8} lg={9}>
+              <Grid item xs={12} md={4} lg={3}>
                 <Paper
                   sx={{
                     p: 2,
@@ -231,6 +239,12 @@ export default function Pdf() {
                 <Paper sx={{ p: 2, display: 'flex', flexDirection: 'column' }}>
                   {/* <ATable /> */}
                   <ATable rows={rows} columns={columns} />
+                </Paper>
+              </Grid>
+              <Grid item xs={12}>
+                <Paper sx={{ p: 2, display: 'flex', flexDirection: 'column' }}>
+                  {/* <ATable /> */}
+                  <ATable rows={gptrows} columns={gpt_columns} />
                 </Paper>
               </Grid>
             </Grid>

@@ -1,5 +1,6 @@
 #coding:UTF-8
 import PyPDF2
+from chatgpt import ChatGPT
 class PdfParse():
     def __init__(self):
         self.pdfReader=None
@@ -9,6 +10,7 @@ class PdfParse():
         self.qlist=[]
         self.qnumlist = []
         self.anwserlist=[]
+        self.gptAnwserList=[]
         self.isFirstline=False
         self.questionText=""
         self.qnum=""
@@ -52,8 +54,15 @@ class PdfParse():
                 self.isFirstline=False
                 self.questionText+=line
                 self.qlist.append(self.questionText.strip())
-        print("QNum: ",self.qnumlist)
-        print("Qlist: ",self.qlist)
-        print("Anwser: ", self.anwserlist)
+                self.gptAnwserList.append(self.askGPT(self.questionText.strip()))
+        # print("QNum: ",self.qnumlist)
+        # print("Qlist: ",self.qlist)
+        # print("Anwser: ", self.anwserlist)
         return {"status":"ok","question":self.qlist,"questionNumber":self.qnumlist,
-                "anwser":self.anwserlist}
+                "anwser":self.anwserlist,"gptanwser":self.gptAnwserList}
+    def askGPT(self,text):
+        gpt = ChatGPT()
+        gpt.add_msg(f"Human:{text}?\n")
+        reply_msg = gpt.get_response().replace("AI:", "", 1)
+        gpt.add_msg(f"AI:{reply_msg}\n")
+        return reply_msg
