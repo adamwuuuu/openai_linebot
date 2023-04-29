@@ -9,6 +9,10 @@ class PdfParse():
         self.qlist=[]
         self.qnumlist = []
         self.anwserlist=[]
+        self.isFirstline=False
+        self.questionText=""
+        self.qnum=""
+        self.anwser=""
 
     def open(self,filename):
         self.pdfName=filename
@@ -28,16 +32,28 @@ class PdfParse():
         for i in range(len(self.pdfReader.pages)):
             PageObj = self.pdfReader.pages[i]
             text=PageObj.extract_text()
-            partext=text.split(".")
-            if len(partext)>1 :
-                qnum=partext[0]
-                q=partext[1]
-                aw=""
-                if qnum.find(")") != -1:
-                   aw=qnum.replace("(","")
-                   aw=aw.replace(")","")
-                self.qnumlist.append(qnum)
-                self.qlist.append(q)
-                self.anwserlist.append(aw)
+            text_no_enter = text.split("\n")
+            for line in text_no_enter:
+             # print(line)
+             partext=line.split(".")
+             if len(partext)>1 :
+                if partext[0].find(")") != -1:
+                   self.qnum=partext[0].split(")")[1]
+                   self.anwser=partext[0].replace("(","")
+                   self.anwser=self.anwser.split(")")[0]
+                else:
+                   self.qnum=partext[0]
+                   self.anwser="NA"
+                self.questionText = partext[1]
+                self.isFirstline = True
+                self.qnumlist.append(self.qnum)
+                self.anwserlist.append(self.anwser)
+             elif self.isFirstline==True:
+                self.isFirstline=False
+                self.questionText+=line
+                self.qlist.append(self.questionText.strip())
+        print("QNum: ",self.qnumlist)
+        print("Qlist: ",self.qlist)
+        print("Anwser: ", self.anwserlist)
         return {"status":"ok","question":self.qlist,"questionNumber":self.qnumlist,
                 "anwser":self.anwserlist}
