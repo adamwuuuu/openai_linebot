@@ -56,7 +56,7 @@ class PdfParse():
                 self.questionText+=line
                 self.qlist.append(self.questionText.strip())
                 self.gptAnwserList.append(self.askGPT(self.questionText.strip()))
-             time.sleep(1)
+             time.sleep(2)
         # print("QNum: ",self.qnumlist)
         # print("Qlist: ",self.qlist)
         # print("Anwser: ", self.anwserlist)
@@ -67,4 +67,5 @@ class PdfParse():
         gpt.add_msg(f"Human:{text}?\n")
         reply_msg = gpt.get_response().replace("AI:", "", 1)
         gpt.add_msg(f"AI:{reply_msg}\n")
+        print("AI Respond: ",reply_msg)
         return reply_msg
