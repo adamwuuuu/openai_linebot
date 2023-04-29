@@ -10,18 +10,12 @@ import Container from '@mui/material/Container';
 import Grid from '@mui/material/Grid';
 import Paper from '@mui/material/Paper';
 import Button from '@mui/material/Button';
-import Table from '@mui/material/Table';
-import TableBody from '@mui/material/TableBody';
-import TableCell from '@mui/material/TableCell';
-import TableContainer from '@mui/material/TableContainer';
-import TableHead from '@mui/material/TableHead';
-import TableRow from '@mui/material/TableRow';
-
 import ATable from "../components/atable";
+import axios from "axios"
 
-function createData(name, calories, fat, carbs, protein) {
-  return { name, calories, fat, carbs, protein };
-}
+// function createData(name, calories, fat, carbs, protein) {
+//   return { name, calories, fat, carbs, protein };
+// }
 
 // const rows = [
 //   createData('Frozen yoghurt', 159, 6.0, 24, 4.0),
@@ -31,39 +25,6 @@ function createData(name, calories, fat, carbs, protein) {
 //   createData('Gingerbread', 356, 16.0, 49, 3.9),
 // ];
 
-const columns = [
-  { field: 'id', headerName: 'ID', width: 70 },
-  { field: 'firstName', headerName: 'First name', width: 130 },
-  { field: 'lastName', headerName: 'Last name', width: 130 },
-  {
-    field: 'age',
-    headerName: 'Age',
-    type: 'number',
-    width: 90,
-  },
-  {
-    field: 'fullName',
-    headerName: 'Full name',
-    description: 'This column has a value getter and is not sortable.',
-    sortable: false,
-    width: 160,
-    valueGetter: (params) =>
-      `${params.row.firstName || ''} ${params.row.lastName || ''}`,
-  },
-];
-
-const rows = [
-  { id: 1, lastName: 'Snow', firstName: 'Jon', age: 35 },
-  { id: 2, lastName: 'Lannister', firstName: 'Cersei', age: 42 },
-  { id: 3, lastName: 'Lannister', firstName: 'Jaime', age: 45 },
-  { id: 4, lastName: 'Stark', firstName: 'Arya', age: 16 },
-  { id: 5, lastName: 'Targaryen', firstName: 'Daenerys', age: null },
-  { id: 6, lastName: 'Melisandre', firstName: null, age: 150 },
-  { id: 7, lastName: 'Clifford', firstName: 'Ferrara', age: 44 },
-  { id: 8, lastName: 'Frances', firstName: 'Rossini', age: 36 },
-  { id: 9, lastName: 'Roxie', firstName: 'Harvey', age: 65 },
-];
-
 export default function Pdf() {
 
     const [filename,setFilename]=useState(""); 
@@ -72,6 +33,43 @@ export default function Pdf() {
         setFilename(e.target.value);
         console.log(filename);
     }
+
+    useEffect(()=>{
+      console.log("file change");
+    },[filename])
+
+    const columns = [
+      { field: 'id', headerName: 'ID', width: 70 },
+      { field: 'questionNumber', headerName: '題目編號', width: 130 },
+      { field: 'question', headerName: '題目', width: 130 },
+      {
+        field: 'answer',
+        headerName: '答案',
+        type: 'number',
+        width: 90,
+      },
+      {
+        field: 'comment',
+        headerName: '備註',
+        description: 'This column has a value getter and is not sortable.',
+        sortable: false,
+        width: 160,
+        valueGetter: (params) =>
+          `${params.row.questionNumber || ''} ${params.row.question || ''}`,
+      },
+    ];
+    
+    const rows = [
+      { id: 1, question: 'Snow', questionNumber: 'Jon', answer: 35 },
+      { id: 2, question: 'Lannister', questionNumber: 'Cersei', answer: 42 },
+      { id: 3, question: 'Lannister', questionNumber: 'Jaime', answer: 45 },
+      { id: 4, question: 'Stark', questionNumber: 'Arya', answer: 16 },
+      { id: 5, question: 'Targaryen', questionNumber: 'Daenerys', answer: null },
+      { id: 6, question: 'Melisandre', questionNumber: null, answer: 150 },
+      { id: 7, question: 'Clifford', questionNumber: 'Ferrara', answer: 44 },
+      { id: 8, question: 'Frances', questionNumber: 'Rossini', answer: 36 },
+      { id: 9, question: 'Roxie', questionNumber: 'Harvey', answer: 65 },
+    ];
 
     return(
         <Box sx={{ display: 'flex' }}>
