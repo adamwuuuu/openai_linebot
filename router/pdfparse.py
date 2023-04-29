@@ -1,6 +1,7 @@
 #coding:UTF-8
 import PyPDF2
 from chatgpt import ChatGPT
+import time
 class PdfParse():
     def __init__(self):
         self.pdfReader=None
@@ -55,6 +56,7 @@ class PdfParse():
                 self.questionText+=line
                 self.qlist.append(self.questionText.strip())
                 self.gptAnwserList.append(self.askGPT(self.questionText.strip()))
+             time.sleep(1)
         # print("QNum: ",self.qnumlist)
         # print("Qlist: ",self.qlist)
         # print("Anwser: ", self.anwserlist)
