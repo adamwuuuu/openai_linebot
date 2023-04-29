@@ -152,16 +152,16 @@ export default function Pdf() {
                    rightLabel="to select files"
                    buttonLabel="click here"
                    buttonRemoveLabel="Remove all"
-                   maxFileSize={10}
+                   maxFileSize={0}
                    maxUploadFiles={0}
-                   maxFilesContainerHeight={357}
+                  //  maxFilesContainerHeight={357}
                    acceptedType={'image/*'}
                    errorSizeMessage={'fill it or remove it to use the default error message'}
                    allowedExtensions={['jpg', 'jpeg']}
                    onFilesChange={handleFilesChange}
                    onError={handleFileUploadError}
                   //  imageSrc={'path/to/custom/image'}
-                   BannerProps={{ elevation: 0, variant: "outlined" }}
+                  //  BannerProps={{ elevation: 0, variant: "outlined" }}
                    showPlaceholderImage={true}
                    PlaceholderGridProps={{ md: 4 }}
                    LabelsGridProps={{ md: 8 }}
@@ -190,7 +190,7 @@ export default function Pdf() {
                     p: 2,
                     display: 'flex',
                     flexDirection: 'column',
-                    height: 240,
+                    height: 400,
                   }}
                 >
                 </Paper>
