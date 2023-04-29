@@ -11,7 +11,10 @@ import Paper from '@mui/material/Paper';
 import Button from '@mui/material/Button';
 import ATable from "../components/atable";
 import axios from "axios"
+
 import FileUpload from "react-mui-fileuploader"
+
+import { Loader, Placeholder } from 'rsuite'; 
 
 // function createData(name, calories, fat, carbs, protein) {
 //   return { name, calories, fat, carbs, protein };
@@ -32,6 +35,7 @@ export default function Pdf() {
       selectedFile: null
     });
     const [filesToUpload, setFilesToUpload] = useState([])
+    const [load,setLoad]=useState(false);
 
     const handleFilesChange = (files) => {
       // Update chosen files
@@ -44,14 +48,17 @@ export default function Pdf() {
   
     const uploadFiles = () => {
       // Create a form and post it to server
+      setLoad(true);
       let formData = new FormData()
       filesToUpload.forEach((file) => formData.append("files", file))
       axios.post("/pdf/upload",formData)
       .then((response)=>{
          console.log(response.data);
+         setLoad(false);
       })
       .catch((error)=>{
         console.log(error);
+        setLoad(false);
       })
     }
 
@@ -118,6 +125,8 @@ export default function Pdf() {
     return(
         <Box sx={{ display: 'flex' }}>
         <CssBaseline />
+        { load ? (<><Placeholder.Paragraph rows={8} />
+        <Loader backdrop content="上傳中..." vertical /></>) : 
         <Box
           component="main"
           sx={{
@@ -139,7 +148,7 @@ export default function Pdf() {
                     p: 2,
                     display: 'flex',
                     flexDirection: 'column',
-                    height: 400,
+                    height: 600,
                   }}
                 >
                  <FileUpload 
@@ -190,7 +199,7 @@ export default function Pdf() {
                     p: 2,
                     display: 'flex',
                     flexDirection: 'column',
-                    height: 400,
+                    height: 600,
                   }}
                 >
                 </Paper>
@@ -205,7 +214,7 @@ export default function Pdf() {
             </Grid>
             {/* <Copyright sx={{ pt: 4 }} /> */}
           </Container>
-        </Box>
+        </Box> }
       </Box>
     )
 }
