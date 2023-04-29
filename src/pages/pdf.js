@@ -35,7 +35,8 @@ export default function Pdf() {
       selectedFile: null
     });
     const [filesToUpload, setFilesToUpload] = useState([])
-    const [load,setLoad]=useState(false);
+    const [load,setLoad]=useState(false)
+    const [rows,setRows]=useState([])
 
     const handleFilesChange = (files) => {
       // Update chosen files
@@ -53,12 +54,22 @@ export default function Pdf() {
       filesToUpload.forEach((file) => formData.append("files", file))
       axios.post("/pdf/upload",formData)
       .then((response)=>{
-         console.log(response.data);
+         let data=response.data;
+         let res=[];
+         console.log(data);
+         if(data.status){
+           for(let i=0;i<data.question.length;i++){
+             res.push({id:i+1,question:data.question[i],
+              questionNumber:data.questionNumber[i],anwser:data.anwser[i]})
+           }
+           setRows(res);
+         }
          setLoad(false);
       })
       .catch((error)=>{
         console.log(error);
         setLoad(false);
+        setRows([]);
       })
     }
 
@@ -94,7 +105,7 @@ export default function Pdf() {
       { field: 'questionNumber', headerName: '題目編號', width: 130 },
       { field: 'question', headerName: '題目', width: 130 },
       {
-        field: 'answer',
+        field: 'anwser',
         headerName: '答案',
         type: 'number',
         width: 90,
@@ -110,23 +121,34 @@ export default function Pdf() {
       },
     ];
     
-    const rows = [
-      { id: 1, question: 'Snow', questionNumber: 'Jon', answer: 35 },
-      { id: 2, question: 'Lannister', questionNumber: 'Cersei', answer: 42 },
-      { id: 3, question: 'Lannister', questionNumber: 'Jaime', answer: 45 },
-      { id: 4, question: 'Stark', questionNumber: 'Arya', answer: 16 },
-      { id: 5, question: 'Targaryen', questionNumber: 'Daenerys', answer: null },
-      { id: 6, question: 'Melisandre', questionNumber: null, answer: 150 },
-      { id: 7, question: 'Clifford', questionNumber: 'Ferrara', answer: 44 },
-      { id: 8, question: 'Frances', questionNumber: 'Rossini', answer: 36 },
-      { id: 9, question: 'Roxie', questionNumber: 'Harvey', answer: 65 },
-    ];
+    // const rows = [
+    //   { id: 1, question: 'Snow', questionNumber: 'Jon', anwser: 35 },
+    //   { id: 2, question: 'Lannister', questionNumber: 'Cersei', anwser: 42 },
+    //   { id: 3, question: 'Lannister', questionNumber: 'Jaime', anwser: 45 },
+    //   { id: 4, question: 'Stark', questionNumber: 'Arya', anwser: 16 },
+    //   { id: 5, question: 'Targaryen', questionNumber: 'Daenerys', anwser: null },
+    //   { id: 6, question: 'Melisandre', questionNumber: null, anwser: 150 },
+    //   { id: 7, question: 'Clifford', questionNumber: 'Ferrara', anwser: 44 },
+    //   { id: 8, question: 'Frances', questionNumber: 'Rossini', anwser: 36 },
+    //   { id: 9, question: 'Roxie', questionNumber: 'Harvey', anwser: 65 },
+    // ];
 
     return(
         <Box sx={{ display: 'flex' }}>
         <CssBaseline />
-        { load ? (<><Placeholder.Paragraph rows={8} />
-        <Loader backdrop content="上傳中..." vertical /></>) : 
+        { load ? (<Box
+          component="main"
+          sx={{
+            backgroundColor: (theme) =>
+              theme.palette.mode === 'light'
+                ? theme.palette.grey[100]
+                : theme.palette.grey[900],
+            flexGrow: 1,
+            height: '100vh',
+            overflow: 'auto',
+          }}
+        ><Placeholder.Paragraph rows={8} />
+        <Loader backdrop content="上傳中..." vertical /></Box>) : 
         <Box
           component="main"
           sx={{
@@ -148,7 +170,7 @@ export default function Pdf() {
                     p: 2,
                     display: 'flex',
                     flexDirection: 'column',
-                    height: 600,
+                    height: 500,
                   }}
                 >
                  <FileUpload 
@@ -196,10 +218,10 @@ export default function Pdf() {
               <Grid item xs={12} md={4} lg={3}>
                 <Paper
                   sx={{
-                    p: 2,
+                    p: 3,
                     display: 'flex',
                     flexDirection: 'column',
-                    height: 600,
+                    height: 500,
                   }}
                 >
                 </Paper>

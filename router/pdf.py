@@ -18,7 +18,6 @@ def upload():
     pdf.open("temp.pdf")
     # file=request.stream
     # pdf.openWithBinary(file)
-    pdf.getText()
-
-    return jsonify({"status":"ok"})
+    res=pdf.getText()
+    return jsonify(res)
 

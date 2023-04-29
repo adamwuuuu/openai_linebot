@@ -6,6 +6,9 @@ class PdfParse():
         self.pdfName=""
         self.pdfCurrPage=0
         self.pdfText=""
+        self.qlist=[]
+        self.qnumlist = []
+        self.anwserlist=[]
 
     def open(self,filename):
         self.pdfName=filename
@@ -20,20 +23,21 @@ class PdfParse():
 
     def getText(self):
         if not self.pdfReader:
-            return "Open PDF Reader"
+            return {"status":"ng","msg":"Open PDF Reader"}
 
         for i in range(len(self.pdfReader.pages)):
             PageObj = self.pdfReader.pages[i]
-            #可以取得內容文字(第幾頁)
-            ss=PageObj.extract_text()
-            print(ss)
-
-
-# PDFObj = open('ERP基礎檢定考試(學科)-簡約版.pdf', 'rb')
-# pdfReader = PyPDF2.PdfReader(PDFObj)
-# print(len(pdfReader.pages))
-#
-# PageObj = pdfReader.pages[0]
-# #可以取得內容文字(第幾頁)
-# ss=PageObj.extract_text()
-# print(ss)
+            text=PageObj.extract_text()
+            partext=text.split(".")
+            if len(partext)>1 :
+                qnum=partext[0]
+                q=partext[1]
+                aw=""
+                if qnum.find(")") != -1:
+                   aw=qnum.replace("(","")
+                   aw=aw.replace(")","")
+                self.qnumlist.append(qnum)
+                self.qlist.append(q)
+                self.anwserlist.append(aw)
+        return {"status":"ok","question":self.qlist,"questionNumber":self.qnumlist,
+                "anwser":self.anwserlist}
