@@ -52,7 +52,8 @@ export default function Pdf() {
         "myFile",
         setFilestate.selectedFile,
         setFilestate.selectedFile.name
-    );
+      );
+    }
 
     useEffect(()=>{
       console.log("file change");
