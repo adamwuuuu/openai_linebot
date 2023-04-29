@@ -9,9 +9,8 @@ import Container from '@mui/material/Container';
 import Grid from '@mui/material/Grid';
 import Paper from '@mui/material/Paper';
 import Button from '@mui/material/Button';
-import Settings from "@mui/icons-material/Settings";
 
-export default function Settings(){
+export default function Setting(){
     return(
       <Box sx={{ display: 'flex' }}>
        <Box
