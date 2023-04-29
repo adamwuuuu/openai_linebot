@@ -1,7 +1,5 @@
 #coding:UTF-8
 import PyPDF2
-
-
 class PdfParse():
     def __init__(self):
         self.pdfReader=None

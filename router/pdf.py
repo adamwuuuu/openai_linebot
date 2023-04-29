@@ -4,7 +4,7 @@ from datetime import timedelta,datetime
 import json
 from flask import Blueprint, views, render_template, request, jsonify, redirect, url_for, session
 # import PyPDF2
-from pdfparse import PdfParse
+from router.pdfparse import PdfParse
 
 today=datetime.today().strftime("%Y-%m-%d")
 
