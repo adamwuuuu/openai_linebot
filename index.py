@@ -15,6 +15,7 @@ from flask_cors import CORS
 
 from chatgpt import ChatGPT
 from router.pdf import pdf_dp
+from router.api import api_dp
 
 app=Flask(__name__, static_folder="./build", static_url_path='/',template_folder = "./build")
 
@@ -24,6 +25,9 @@ handler =WebhookHandler(os.getenv("LINE_CHANNEL_SECRET"))
 CORS(app)
 
 chatgpt = ChatGPT()
+
+app.register_blueprint(pdf_dp)
+app.register_blueprint(api_dp)
 
 @app.route("/")
 def home_page():
