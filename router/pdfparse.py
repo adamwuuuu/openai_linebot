@@ -12,6 +12,9 @@ class PdfParse():
         PDFObj = open(self.pdfName, 'rb')
         self.pdfReader =PyPDF2.PdfReader(PDFObj)
 
+    def openWithBinary(self,binary):
+        self.pdfReader = PyPDF2.PdfReader(binary)
+
     def close(self):
         pass
 
