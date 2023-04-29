@@ -3,21 +3,25 @@ import { styled, createTheme, ThemeProvider,useTheme } from '@mui/material/style
 import CssBaseline from '@mui/material/CssBaseline';
 import MuiDrawer from '@mui/material/Drawer';
 import Box from '@mui/material/Box';
+import Button from '@mui/material/Button';
 import MuiAppBar from '@mui/material/AppBar';
 import Toolbar from '@mui/material/Toolbar';
 import List from '@mui/material/List';
 import Typography from '@mui/material/Typography';
 import Divider from '@mui/material/Divider';
 import IconButton from '@mui/material/IconButton';
-import Badge from '@mui/material/Badge';
+import Tooltip from '@mui/material/Tooltip';
 import MenuIcon from '@mui/icons-material/Menu';
 import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
+import ChevronRightIcon from '@mui/icons-material/ChevronRight';
 import ListItem from '@mui/material/ListItem';
 import ListItemButton from '@mui/material/ListItemButton';
 import ListItemIcon from '@mui/material/ListItemIcon';
 import ListItemText from '@mui/material/ListItemText';
 import HomeIcon  from '@mui/icons-material/Home';
+import SettingsIcon  from '@mui/icons-material/Settings';
 import PictureAsPdfIcon from '@mui/icons-material/PictureAsPdf';
+import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import AssignmentIcon from '@mui/icons-material/Assignment';
 
 // import { mainListItems,secondaryListItems } from './listItems';
@@ -159,7 +163,7 @@ export default function Sidebar({ user,username }){
       >
       <DrawerHeader>
 		  {user ? <><Tooltip title="登出" arrow>
-		  <Button onClick={logout}><AccountCircleIcon/></Button></Tooltip><Typography>{username}</Typography></>:<Button color="inherit"><Link className="link" to="login">登入</Link></Button>}
+		  <Button ><AccountCircleIcon/></Button></Tooltip><Typography>{username}</Typography></>:<Button color="inherit"><Link className="link" to="login">登入</Link></Button>}
           <IconButton onClick={handleDrawerClose}>
             {theme.direction === 'ltr' ? <ChevronLeftIcon /> : <ChevronRightIcon />}
           </IconButton>
