@@ -1,5 +1,5 @@
 import React,{ useState ,useCallback} from "react";
-import { styled, createTheme, ThemeProvider } from '@mui/material/styles';
+import { styled, createTheme, ThemeProvider,useTheme } from '@mui/material/styles';
 import CssBaseline from '@mui/material/CssBaseline';
 import MuiDrawer from '@mui/material/Drawer';
 import Box from '@mui/material/Box';
@@ -12,7 +12,7 @@ import IconButton from '@mui/material/IconButton';
 import Badge from '@mui/material/Badge';
 import MenuIcon from '@mui/icons-material/Menu';
 import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
-
+import ListItem from '@mui/material/ListItem';
 import ListItemButton from '@mui/material/ListItemButton';
 import ListItemIcon from '@mui/material/ListItemIcon';
 import ListItemText from '@mui/material/ListItemText';
@@ -22,7 +22,10 @@ import AssignmentIcon from '@mui/icons-material/Assignment';
 
 // import { mainListItems,secondaryListItems } from './listItems';
 
-import {useNavigate} from 'react-router-dom';
+import {
+  Link,
+  useNavigate
+} from "react-router-dom";
 
 const drawerWidth = 200;
 
@@ -72,13 +75,17 @@ const DrawerHeader = styled('div')(({ theme }) => ({
 }));
 
 export default function Sidebar({ user,username }){
-
+    const theme = useTheme();
     const [open, setOpen] =useState(true);
     const navigate = useNavigate();
     const handle_render =useCallback((url) => navigate(url, {replace: true}), [navigate]);
 
-    const toggleDrawer = () => {
-      setOpen(!open);
+    const handleDrawerOpen = () => {
+      setOpen(true);
+    };
+  
+    const handleDrawerClose = () => {
+      setOpen(false);
     };
 
     const handle_sidebar_button=(event,index)=>{
@@ -133,11 +140,11 @@ export default function Sidebar({ user,username }){
 		  <Typography variant="h6" noWrap component="div">
 		  </Typography>
 		  <Link className="link" to="/">
-		  <img src={adam} style={{ height: "40px",cursor:"pointer" }} alt="My logo"></img>
+		  {/* <img src={adam} style={{ height: "40px",cursor:"pointer" }} alt="My logo"></img> */}
 		 </Link>
         </Toolbar>
       </AppBar>
-      <Drawer
+      <MuiDrawer
         sx={{
           width: drawerWidth,
           flexShrink: 0,
@@ -185,7 +192,7 @@ export default function Sidebar({ user,username }){
             </ListItem>
           ))}
         </List> :  null }
-      </Drawer>
+      </MuiDrawer>
       <Main open={open}>
       <DrawerHeader />	
     </Main>
