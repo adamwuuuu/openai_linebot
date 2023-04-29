@@ -12,7 +12,7 @@ export default function ATable({ rows , columns }) {
         rows,
         pagination: { paginationModel: { pageSize: 5 } },
       }}
-      // checkboxSelection
+      checkboxSelection
       pageSizeOptions={[5, 10]}
     />
   </div>
