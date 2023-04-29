@@ -14,7 +14,7 @@ pdf_dp = Blueprint("pdf", __name__, url_prefix='/pdf')
 def upload():
     pdf=PdfParse()
     file=request.files['files']
-    pdf.open(file)
+    pdf.open(file.read())
     pdf.getText()
     # file = request.get_data()
     # print(file)
