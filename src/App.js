@@ -13,7 +13,7 @@ import Sidebar from './components/sidebar';
 
 import Pdf from "./pages/pdf"
 import Home from "./pages/home"
-
+import Settings from './pages/settings';
 
 function App() {
   return (
@@ -23,6 +23,7 @@ function App() {
        <Routes>
         <Route exact path="/" element={<Home />}></Route>
         <Route exact path="/pdf" element={<Pdf />}></Route>
+        <Route exact path="/settings" element={<Settings />}></Route>
        </Routes>
      </BrowserRouter>
     </div>
