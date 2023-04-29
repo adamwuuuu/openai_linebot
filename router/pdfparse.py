@@ -16,7 +16,7 @@ class PdfParse():
         self.pdfReader = PyPDF2.PdfReader(binary)
 
     def close(self):
-        pass
+        self.pdfReader=None
 
     def getText(self):
         if not self.pdfReader:
