@@ -1,7 +1,6 @@
 import React,{ useState ,useEffect} from "react";
 import CssBaseline from '@mui/material/CssBaseline';
 import Box from '@mui/material/Box';
-import Input from '@mui/material/Input';
 import Typography from '@mui/material/Typography';
 import Divider from '@mui/material/Divider';
 import IconButton from '@mui/material/IconButton';
@@ -12,6 +11,7 @@ import Paper from '@mui/material/Paper';
 import Button from '@mui/material/Button';
 import ATable from "../components/atable";
 import axios from "axios"
+import FileUpload from "react-mui-fileuploader"
 
 // function createData(name, calories, fat, carbs, protein) {
 //   return { name, calories, fat, carbs, protein };
@@ -31,6 +31,25 @@ export default function Pdf() {
     const [filestate,setFilestate]=useState({
       selectedFile: null
     });
+    const [filesToUpload, setFilesToUpload] = useState([])
+
+    const handleFilesChange = (files) => {
+      // Update chosen files
+      setFilesToUpload([ ...files ])
+    };
+  
+    const uploadFiles = () => {
+      // Create a form and post it to server
+      let formData = new FormData()
+      filesToUpload.forEach((file) => formData.append("files", file))
+      axios.post("/pdf/upload",formData)
+      .then((response)=>{
+         console.log(response.data);
+      })
+      .catch((error)=>{
+        console.log(error);
+      })
+    }
 
     const fileinput=(e)=>{
         setFilename(e.target.value);
@@ -57,7 +76,7 @@ export default function Pdf() {
 
     useEffect(()=>{
       console.log("file change");
-    },[filename])
+    },[filesToUpload])
 
     const columns = [
       { field: 'id', headerName: 'ID', width: 70 },
@@ -119,12 +138,12 @@ export default function Pdf() {
                     height: 240,
                   }}
                 >
-
-                <Input type="file" onChange={onFileChange} />
-                 {/* <input hidden accept="image/*" multiple type="file" onChange={fileinput} /> */}
-                <Button variant="contained" component="label" onClick={onFileUpload}>
-                  檔案上傳
-                </Button>
+                 <FileUpload
+                  multiFile={false}
+                  onFilesChange={handleFilesChange}
+                  onContextReady={(context) => {}}
+                 />
+                 <Button variant="contained" onClick={uploadFiles}>上傳檔案</Button>      
                 </Paper>
               </Grid>
               {/* Recent Deposits */}
