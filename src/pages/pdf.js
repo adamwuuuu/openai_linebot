@@ -147,10 +147,10 @@ export default function Pdf() {
                    multiFile={true}
                    disabled={false}
                    title="選擇檔案"
-                   header="[Drag to drop]"
-                   leftLabel="or"
-                   rightLabel="to select files"
-                   buttonLabel="選擇"
+                   header="[拖曳檔案]"
+                   leftLabel="或者"
+                   rightLabel=""
+                   buttonLabel="選擇檔案"
                    buttonRemoveLabel="移除全部檔案"
                    maxFileSize={0}
                    maxUploadFiles={0}
