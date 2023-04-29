@@ -8,8 +8,12 @@ export default function ATable({ rows , columns }) {
     <DataGrid
       rows={rows}
       columns={columns}
-      paginationModel={{ page: 0, pageSize: 5 }}
-      checkboxSelection
+      initialState={{
+        rows,
+        pagination: { paginationModel: { pageSize: 5 } },
+      }}
+      // checkboxSelection
+      pageSizeOptions={[5, 10]}
     />
   </div>
   );
