@@ -1,7 +1,7 @@
 import React,{ useState ,useEffect} from "react";
 import CssBaseline from '@mui/material/CssBaseline';
 import Box from '@mui/material/Box';
-import List from '@mui/material/List';
+import Input from '@mui/material/Input';
 import Typography from '@mui/material/Typography';
 import Divider from '@mui/material/Divider';
 import IconButton from '@mui/material/IconButton';
@@ -120,10 +120,10 @@ export default function Pdf() {
                   }}
                 >
 
-                <input type="file" onChange={onFileChange} />
+                <Input type="file" onChange={onFileChange} />
                  {/* <input hidden accept="image/*" multiple type="file" onChange={fileinput} /> */}
                 <Button variant="contained" component="label" onClick={onFileUpload}>
-                  檔案選擇
+                  檔案上傳
                 </Button>
                 </Paper>
               </Grid>
