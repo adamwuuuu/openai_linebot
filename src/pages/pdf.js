@@ -26,7 +26,8 @@ export default function Pdf() {
     const [filesToUpload, setFilesToUpload] = useState([])
     const [load,setLoad]=useState(false)
     const [rows,setRows]=useState([])
-    const [gptrows,setGptrows]=useState([]);
+    const [gptrows,setGptrows]=useState([])
+    const [loadtitle,setLoadtitle]=useState("")
 
     const apiRef = useGridApiRef();
 
@@ -41,6 +42,7 @@ export default function Pdf() {
   
     const uploadFiles = () => {
       // Create a form and post it to server
+      setLoadtitle("上傳中.....")
       setLoad(true);
       let formData = new FormData()
       filesToUpload.forEach((file) => formData.append("files", file))
@@ -49,7 +51,6 @@ export default function Pdf() {
          let data=response.data;
          let res=[];
          let gptres=[];
-         console.log(data);
          if(data.status){
            for(let i=0;i<data.question.length;i++){
              res.push({id:i+1,question:data.question[i],
@@ -93,21 +94,27 @@ export default function Pdf() {
     }
 
     const askGptClick = (e, row) => {
-      e.stopPropagation();
+      // e.stopPropagation();
       // const rowIds = apiRef.current.getAllRowIds();
       // const rowId = randomArrayItem(rowIds);
+      setLoadtitle("ChatGPT回答中.....")
+      setLoad(true);
   
       apiRef.current.updateRows([{ id: row.id, gpt: ()=>{
         axios.post("/api/askgpt",{question:row.question})
              .then((response)=>{
                 let data=response.data;
+                let ans=""
                 if(data.status){
-                  return data.anwser
+                  ans=data.anwser
                 }else{
-                  return "No answer"
+                  ans="No answer"
                 }
+                setLoad(false);
+                return ans;
              })
              .catch((error)=>{
+                setLoad(false);
                 return `${error}`
              })
       }}]);      
@@ -174,7 +181,7 @@ export default function Pdf() {
             overflow: 'auto',
           }}
         ><Placeholder.Paragraph rows={8} />
-        <Loader backdrop content="上傳中..." vertical /></Box>) : 
+        <Loader backdrop content={loadtitle} vertical /></Box>) : 
         <Box
           component="main"
           sx={{

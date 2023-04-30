@@ -45,7 +45,6 @@ def ask_gpt():
     anwswer=gpt.askGPT(data['question'])
     return jsonify({"status":"ok","anwser":anwswer})
 
-
 # @api_dp.route("/refresh_token",methods=['POST'])
 # @jwt_required(refresh=True)
 # def refresh_expiring_jwts():
