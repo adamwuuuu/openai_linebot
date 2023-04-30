@@ -94,7 +94,7 @@ export default function Pdf() {
     }
 
     const askGPT=async(question)=>{
-      await axios.post("/api/askgpt",{question:question})
+      return await axios.post("/api/askgpt",{question:question})
       .then((response)=>{
          let data=response.data;
          let ans=""
@@ -196,12 +196,12 @@ export default function Pdf() {
             overflow: 'auto',
           }}
         >
-          <Container maxWidth="lg" sx={{ mt: 4, mb: 4 }}>
-            <Grid container  justifyContent="center" alignItems="center">
-              <Typography variant="h1">
+          <Grid container  justifyContent="center" alignItems="center">
+            <Typography variant="h5">
                 PDF
-              </Typography>
-            </Grid>
+            </Typography>
+          </Grid>
+          <Container maxWidth="lg" sx={{ mt: 4, mb: 4 }}>
             <Grid container spacing={3}>
               <Grid item xs={12} md={4} lg={3}>
                 <Paper
