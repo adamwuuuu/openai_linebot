@@ -30,3 +30,10 @@ class ChatGPT:
 
     def add_msg(self, text):
         self.prompt.add_msg(text)
+
+    def askGPT(self,text):
+        self.add_msg(f"Human:{text}?\n")
+        reply_msg = self.get_response().replace("AI:", "", 1)
+        self.add_msg(f"AI:{reply_msg}\n")
+        print("AI Respond: ",reply_msg)
+        return reply_msg

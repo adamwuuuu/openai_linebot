@@ -3,7 +3,6 @@ import random
 from datetime import timedelta,datetime
 import json
 from flask import Blueprint, views, render_template, request, jsonify, redirect, url_for, session
-# import PyPDF2
 from router.pdfparse import PdfParse
 
 today=datetime.today().strftime("%Y-%m-%d")
@@ -19,5 +18,6 @@ def upload():
     # file=request.stream
     # pdf.openWithBinary(file)
     res=pdf.getText()
+    pdf.close()
     return jsonify(res)
 

@@ -3,6 +3,7 @@ import json
 import random
 from datetime import timedelta
 import os
+from chatgpt import ChatGPT
 from flask import Blueprint, views, render_template, request, jsonify, redirect, url_for, session
 # from flask_mail import Message
 # from flask_login import current_user,login_user,logout_user
@@ -36,6 +37,14 @@ def test_page():
     print("UID: ",uid)
 
     return jsonify({"success":True,"msg":"Testing","access_token":""})
+
+@api_dp.route("/askgpt",methods=['POST'])
+def ask_gpt():
+    data = request.get_json(force=True)
+    gpt=ChatGPT()
+    anwswer=gpt.askGPT(data['question'])
+    return jsonify({"status":"ok","anwser":anwswer})
+
 
 # @api_dp.route("/refresh_token",methods=['POST'])
 # @jwt_required(refresh=True)

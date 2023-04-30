@@ -55,13 +55,12 @@ class PdfParse():
                 self.isFirstline=False
                 self.questionText+=line
                 self.qlist.append(self.questionText.strip())
-                self.gptAnwserList.append(self.askGPT(self.questionText.strip()))
-             # time.sleep(2)
+                # self.gptAnwserList.append(self.askGPT(self.questionText.strip()))
         # print("QNum: ",self.qnumlist)
         # print("Qlist: ",self.qlist)
         # print("Anwser: ", self.anwserlist)
         return {"status":"ok","question":self.qlist,"questionNumber":self.qnumlist,
-                "anwser":self.anwserlist,"gptanwser":self.gptAnwserList}
+                "anwser":self.anwserlist}
     def askGPT(self,text):
         gpt = ChatGPT()
         gpt.add_msg(f"Human:{text}?\n")

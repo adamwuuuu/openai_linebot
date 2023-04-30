@@ -10,23 +10,12 @@ import Grid from '@mui/material/Grid';
 import Paper from '@mui/material/Paper';
 import Button from '@mui/material/Button';
 import ATable from "../components/atable";
+import {  useGridApiRef } from '@mui/x-data-grid';
 import axios from "axios"
 
 import FileUpload from "react-mui-fileuploader"
 
 import { Loader, Placeholder } from 'rsuite'; 
-
-// function createData(name, calories, fat, carbs, protein) {
-//   return { name, calories, fat, carbs, protein };
-// }
-
-// const rows = [
-//   createData('Frozen yoghurt', 159, 6.0, 24, 4.0),
-//   createData('Ice cream sandwich', 237, 9.0, 37, 4.3),
-//   createData('Eclair', 262, 16.0, 24, 6.0),
-//   createData('Cupcake', 305, 3.7, 67, 4.3),
-//   createData('Gingerbread', 356, 16.0, 49, 3.9),
-// ];
 
 export default function Pdf() {
 
@@ -38,6 +27,8 @@ export default function Pdf() {
     const [load,setLoad]=useState(false)
     const [rows,setRows]=useState([])
     const [gptrows,setGptrows]=useState([]);
+
+    const apiRef = useGridApiRef();
 
     const handleFilesChange = (files) => {
       // Update chosen files
@@ -63,10 +54,10 @@ export default function Pdf() {
            for(let i=0;i<data.question.length;i++){
              res.push({id:i+1,question:data.question[i],
               questionNumber:data.questionNumber[i],anwser:data.anwser[i]})
-             gptres.push({id:i+1,questionNumber:data.questionNumber[i],gptanwser:data.gptanwser[i]})
+            //  gptres.push({id:i+1,questionNumber:data.questionNumber[i],gptanwser:data.gptanwser[i]})
            }
            setRows(res);
-           setGptrows(gptres);
+          //  setGptrows(gptres);
          }
          setLoad(false);
       })
@@ -74,7 +65,7 @@ export default function Pdf() {
         console.log(error);
         setLoad(false);
         setRows([]);
-        setGptrows([]);
+        // setGptrows([]);
       })
     }
 
@@ -101,26 +92,53 @@ export default function Pdf() {
       );
     }
 
-    useEffect(()=>{
-      console.log("file change");
-    },[filesToUpload])
+    const askGptClick = (e, row) => {
+      e.stopPropagation();
+      // const rowIds = apiRef.current.getAllRowIds();
+      // const rowId = randomArrayItem(rowIds);
+  
+      apiRef.current.updateRows([{ id: row.id, gpt: ()=>{
+        axios.post("/api/askgpt",{question:row.question})
+             .then((response)=>{
+                let data=response.data;
+                if(data.status){
+                  return data.anwser
+                }else{
+                  return "No answer"
+                }
+             })
+             .catch((error)=>{
+                return `${error}`
+             })
+      }}]);      
+    };
 
     const columns = [
       { field: 'id', headerName: 'ID', width: 70 },
-      { field: 'questionNumber', headerName: '題目編號', width: 130 },
-      { field: 'question', headerName: '題目', width: 130 },
+      { field: 'questionNumber', headerName: '題目編號', width: 70 },
+      { field: 'question', headerName: '題目', width: 200 },
       {
         field: 'anwser',
         headerName: '答案',
         type: 'number',
-        width: 90,
+        width: 130,
       },
+      { field: 'askgpt', headerName: '點選', width: 200, renderCell: (params) => {
+        return (
+          <Button
+            onClick={(e) => askGptClick(e, params.row)}
+            variant="contained"
+          >
+            點選
+          </Button>
+        );
+      }},
       {
-        field: 'comment',
-        headerName: '備註',
-        description: 'This column has a value getter and is not sortable.',
+        field: 'gpt',
+        headerName: 'GPT回答',
+        description: '',
         sortable: false,
-        width: 160,
+        width: 130,
         valueGetter: (params) =>
           `${params.row.questionNumber || ''} ${params.row.question || ''}`,
       },
@@ -238,13 +256,7 @@ export default function Pdf() {
               <Grid item xs={12}>
                 <Paper sx={{ p: 2, display: 'flex', flexDirection: 'column' }}>
                   {/* <ATable /> */}
-                  <ATable rows={rows} columns={columns} />
-                </Paper>
-              </Grid>
-              <Grid item xs={12}>
-                <Paper sx={{ p: 2, display: 'flex', flexDirection: 'column' }}>
-                  {/* <ATable /> */}
-                  <ATable rows={gptrows} columns={gpt_columns} />
+                  <ATable rows={rows} columns={columns} apiRef={apiRef} />
                 </Paper>
               </Grid>
             </Grid>
