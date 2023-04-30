@@ -93,31 +93,34 @@ export default function Pdf() {
       );
     }
 
+    const askGPT=async(question)=>{
+     return await axios.post("/api/askgpt",{question:question})
+      .then((response)=>{
+         let data=response.data;
+         let ans=""
+         if(data.status){
+           ans=data.anwser
+         }else{
+           ans="No answer"
+         }
+         setLoad(false);
+         return ans;
+      })
+      .catch((error)=>{
+         setLoad(false);
+         return `${error}`
+      })
+     }
+    }
+
     const askGptClick = (e, row) => {
       // e.stopPropagation();
       // const rowIds = apiRef.current.getAllRowIds();
       // const rowId = randomArrayItem(rowIds);
       setLoadtitle("ChatGPT回答中.....")
       setLoad(true);
-  
-      apiRef.current.updateRows([{ id: row.id, gpt: ()=>{
-        axios.post("/api/askgpt",{question:row.question})
-             .then((response)=>{
-                let data=response.data;
-                let ans=""
-                if(data.status){
-                  ans=data.anwser
-                }else{
-                  ans="No answer"
-                }
-                setLoad(false);
-                return ans;
-             })
-             .catch((error)=>{
-                setLoad(false);
-                return `${error}`
-             })
-      }}]);      
+      let updatedata=askGPT(row.question)
+      apiRef.current.updateRows([{ id: row.id, gpt: updatedata}]);      
     };
 
     const columns = [
@@ -195,8 +198,12 @@ export default function Pdf() {
           }}
         >
           <Container maxWidth="lg" sx={{ mt: 4, mb: 4 }}>
+            <Grid container  justifyContent="center" alignItems="center">
+              <Typography variant="h1">
+                PDF
+              </Typography>
+            </Grid>
             <Grid container spacing={3}>
-              {/* Chart */}
               <Grid item xs={12} md={4} lg={3}>
                 <Paper
                   sx={{
