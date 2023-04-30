@@ -25,11 +25,11 @@ export default function Setting(){
                  overflow: 'auto',
             }}
        >
-        <Container>
-           <Typography>
-             設定
-           </Typography>
-        </Container>
+       <Grid container  justifyContent="center" alignItems="center">
+          <Typography variant="h5">
+              設定
+          </Typography>
+        </Grid>
        </Box>
       </Box>
     )
