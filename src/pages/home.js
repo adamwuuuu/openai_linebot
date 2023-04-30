@@ -56,15 +56,15 @@ export default function Home(){
               首頁
           </Typography>
         </Grid>
-        <br />
-        <CssBaseline />
-        <br />
         <Container maxWidth="lg" sx={{ mt: 4, mb: 4 }}>
-          <Grid container spacing={{ xs: 2, md: 3 }} columns={{ xs: 4, sm: 8, md: 12 }}>
+          <Grid container spacing={{ xs: 2, md: 3 }} columns={{ xs: 4, sm: 8, md: 12 }} >
            {Array.from(Array(3)).map((_, index) => (
             <Grid item xs={2} sm={4} md={4} key={index}>
              <Item>{index}</Item>
             </Grid>))}
+          </Grid>
+          <Grid container columnSpacing={{ xs:2, sm: 3, md: 4 }}>
+
           </Grid>
           <Grid container spacing={3}>
             <Grid item xs={12} md={4} lg={3}>
