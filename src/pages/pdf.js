@@ -110,8 +110,7 @@ export default function Pdf() {
          setLoad(false);
          return `${error}`
       })
-     }
-    }
+    };
 
     const askGptClick = (e, row) => {
       // e.stopPropagation();
