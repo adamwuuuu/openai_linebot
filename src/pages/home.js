@@ -13,6 +13,7 @@ import { Loader, Placeholder } from 'rsuite';
 export default function Home(){
   
   const [load,setLoad]=useState(false)
+  const [loadtitle,setLoadtitle]=useState("")
     
   return (
       <Box sx={{ display: 'flex' }}>
