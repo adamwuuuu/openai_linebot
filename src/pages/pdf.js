@@ -124,12 +124,14 @@ export default function Pdf() {
       //   gpt: updatedata
       // }
       // setRows(rrow);
-      apiRef.current.updateRows([{ id: row.id, gpt: localStorage.getItem("ans")}]);      
+      let rindex=rows.findIndex((item)=>item.id==row.id);
+      rows[rindex].gpt=localStorage.getItem("ans");
+      // apiRef.current.updateRows([{ id: row.id, gpt: localStorage.getItem("ans")}]);      
     };
 
-    // useEffect(()=>{
-    //   console.log("Table Update");
-    // },[rows])
+    useEffect(()=>{
+      console.log("Table Update");
+    },[rows])
 
     const columns = [
       { field: 'id', headerName: 'ID', width: 70 },
@@ -261,7 +263,7 @@ export default function Pdf() {
                 </Paper>
               </Grid>
               {/* Recent Deposits */}
-              <Grid item xs={12} md={4} lg={3}>
+              <Grid item xs={12} md={8} lg={6}>
                 <Paper
                   sx={{
                     p: 3,
