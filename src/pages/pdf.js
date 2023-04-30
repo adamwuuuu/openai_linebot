@@ -94,7 +94,7 @@ export default function Pdf() {
     }
 
     const askGPT=async(question)=>{
-     return await axios.post("/api/askgpt",{question:question})
+      await axios.post("/api/askgpt",{question:question})
       .then((response)=>{
          let data=response.data;
          let ans=""
