@@ -104,7 +104,7 @@ export default function Pdf() {
            ans="No answer"
          }
          setLoad(false);
-         return ans;
+         localStorage.setItem("ans",ans);
       })
       .catch((error)=>{
          setLoad(false);
@@ -118,18 +118,18 @@ export default function Pdf() {
       // const rowId = randomArrayItem(rowIds);
       setLoadtitle("ChatGPT回答中.....")
       setLoad(true);
-      let updatedata=askGPT(row.question)
-      let rrow = {
-        ...rows[parseInt(row.id)-1],
-        gpt: updatedata
-      }
-      setRows(rrow);
-      // apiRef.current.updateRows([{ id: row.id, gpt: updatedata}]);      
+      askGPT(row.question)
+      // let rrow = {
+      //   ...rows[parseInt(row.id)-1],
+      //   gpt: updatedata
+      // }
+      // setRows(rrow);
+      apiRef.current.updateRows([{ id: row.id, gpt: localStorage.getItem("ans")}]);      
     };
 
-    useEffect(()=>{
-      console.log("Table Update");
-    },[rows])
+    // useEffect(()=>{
+    //   console.log("Table Update");
+    // },[rows])
 
     const columns = [
       { field: 'id', headerName: 'ID', width: 70 },
