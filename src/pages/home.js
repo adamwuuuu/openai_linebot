@@ -63,9 +63,12 @@ export default function Home(){
              <Item>{index}</Item>
             </Grid>))}
           </Grid>
-          <Grid container columnSpacing={{ xs:2, sm: 3, md: 4 }}>
+          {/* <Grid container columnSpacing={{ xs:2, sm: 3, md: 4 }}>
 
-          </Grid>
+          </Grid> */}
+          <br />
+          <br />
+          <br />
           <Grid container spacing={3}>
             <Grid item xs={12} md={4} lg={3}>
               <Paper
