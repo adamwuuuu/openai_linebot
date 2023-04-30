@@ -54,7 +54,7 @@ export default function Pdf() {
          if(data.status){
            for(let i=0;i<data.question.length;i++){
              res.push({id:i+1,question:data.question[i],
-              questionNumber:data.questionNumber[i],anwser:data.anwser[i]})
+              questionNumber:data.questionNumber[i],anwser:data.anwser[i],gpt:""})
             //  gptres.push({id:i+1,questionNumber:data.questionNumber[i],gptanwser:data.gptanwser[i]})
            }
            setRows(res);
@@ -119,8 +119,17 @@ export default function Pdf() {
       setLoadtitle("ChatGPT回答中.....")
       setLoad(true);
       let updatedata=askGPT(row.question)
-      apiRef.current.updateRows([{ id: row.id, gpt: updatedata}]);      
+      let rrow = {
+        ...rows[parseInt(row.id)-1],
+        gpt: updatedata
+      }
+      setRows(rrow);
+      // apiRef.current.updateRows([{ id: row.id, gpt: updatedata}]);      
     };
+
+    useEffect(()=>{
+      console.log("Table Update");
+    },[rows])
 
     const columns = [
       { field: 'id', headerName: 'ID', width: 70 },
@@ -147,9 +156,7 @@ export default function Pdf() {
         headerName: 'GPT回答',
         description: '',
         sortable: false,
-        width: 130,
-        valueGetter: (params) =>
-          `${params.row.questionNumber || ''} ${params.row.question || ''}`,
+        width: 130
       },
     ];
 
