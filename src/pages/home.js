@@ -45,7 +45,7 @@ export default function Home(){
       >
         <Grid container  justifyContent="center" alignItems="center">
           <Typography variant="h5">
-              PDF
+              首頁
           </Typography>
         </Grid>
         <Container maxWidth="lg" sx={{ mt: 4, mb: 4 }}>
