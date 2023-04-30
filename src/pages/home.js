@@ -10,6 +10,9 @@ export default function Home(){
   
     return (
         <Container maxWidth="lg" sx={{ mt: 4, mb: 4 }}>
+        <Typography  variant="h5">
+            首頁
+        </Typography>
         <Grid container spacing={3}>
           {/* Chart */}
           <Grid item xs={12} md={8} lg={9}>
@@ -21,15 +24,6 @@ export default function Home(){
                 height: 240,
               }}
             >
-             <Typography
-                component="h1"
-                variant="h6"
-                color="inherit"
-                noWrap
-                sx={{ flexGrow: 1 }}
-              >
-                Home
-              </Typography>
               {/* <Chart /> */}
             </Paper>
           </Grid>

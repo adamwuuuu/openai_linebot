@@ -112,18 +112,11 @@ export default function Pdf() {
       })
     };
 
-    const askGptClick = (e, row) => {
+    const askGptClick = async(e, row) => {
       // e.stopPropagation();
-      // const rowIds = apiRef.current.getAllRowIds();
-      // const rowId = randomArrayItem(rowIds);
-      setLoadtitle("ChatGPT回答中.....")
+      setLoadtitle("ChatGPT回答中.....");
       setLoad(true);
-      askGPT(row.question)
-      // let rrow = {
-      //   ...rows[parseInt(row.id)-1],
-      //   gpt: updatedata
-      // }
-      // setRows(rrow);
+      await askGPT(row.question)
       let rindex=rows.findIndex((item)=>item.id==row.id);
       rows[rindex].gpt=localStorage.getItem("ans");
       // apiRef.current.updateRows([{ id: row.id, gpt: localStorage.getItem("ans")}]);      
