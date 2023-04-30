@@ -57,15 +57,13 @@ export default function Home(){
           </Typography>
         </Grid>
         <Container maxWidth="lg" sx={{ mt: 4, mb: 4 }}>
+           {/* Top */}
           <Grid container spacing={{ xs: 2, md: 3 }} columns={{ xs: 4, sm: 8, md: 12 }} >
            {Array.from(Array(3)).map((_, index) => (
             <Grid item xs={2} sm={4} md={4} key={index}>
              <Item>{index}</Item>
             </Grid>))}
           </Grid>
-          {/* <Grid container columnSpacing={{ xs:2, sm: 3, md: 4 }}>
-
-          </Grid> */}
           <br />
           <br />
           <Grid container spacing={3}>
@@ -80,7 +78,7 @@ export default function Home(){
               >
               </Paper>
             </Grid>
-            {/* Recent Deposits */}
+            {/* Second */}
             <Grid item xs={12} md={8} lg={6}>
               <Paper
                 sx={{
@@ -92,7 +90,18 @@ export default function Home(){
               >
               </Paper>
             </Grid>
-            {/* Recent Orders */}
+            <Grid item xs={12} md={4} lg={3}>
+              <Paper
+                sx={{
+                  p: 2,
+                  display: 'flex',
+                  flexDirection: 'column',
+                  height: 500,
+                }}
+              >
+              </Paper>
+            </Grid>
+             {/* Bottom */}
             <Grid item xs={12}>
               <Paper sx={{ p: 2, display: 'flex', flexDirection: 'column' }}>
                 
