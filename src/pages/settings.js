@@ -30,7 +30,7 @@ export default function Setting(){
               設定
           </Typography>
         </Grid>
-        <Container maxWidth="lg" sx={{ mt: 4, mb: 4 }}>
+        <Container maxWidth="lg" sx={{ mt: 4, mb: 4 ,  justifyContent: 'center' , alignItems: 'center' }}>
          <Grid container spacing={3}>
             <Grid item xs={12} md={8} lg={9}>
                 <Paper
