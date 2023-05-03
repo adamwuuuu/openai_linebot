@@ -30,7 +30,8 @@ export default function Setting(){
               設定
           </Typography>
         </Grid>
-        <Grid container spacing={3}>
+        <Container maxWidth="lg" sx={{ mt: 4, mb: 4 }}>
+         <Grid container spacing={3}>
             <Grid item xs={12} md={8} lg={9}>
                 <Paper
                   sx={{
@@ -43,6 +44,7 @@ export default function Setting(){
                 </Paper>
               </Grid>
           </Grid>
+        </Container>
        </Box>
       </Box>
     )
