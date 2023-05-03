@@ -30,6 +30,19 @@ export default function Setting(){
               設定
           </Typography>
         </Grid>
+        <Grid container spacing={3}>
+            <Grid item xs={12} md={8} lg={9}>
+                <Paper
+                  sx={{
+                    p: 3,
+                    display: 'flex',
+                    flexDirection: 'column',
+                    height: 600,
+                  }}
+                >  
+                </Paper>
+              </Grid>
+          </Grid>
        </Box>
       </Box>
     )
