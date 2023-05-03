@@ -34,7 +34,7 @@ export default function Setting(){
             <Grid item xs={12} md={8} lg={9}>
                 <Paper
                   sx={{
-                    p: 3,
+                    p: 2,
                     display: 'flex',
                     flexDirection: 'column',
                     height: 600,
